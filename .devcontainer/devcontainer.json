@@ -8,6 +8,18 @@
             "version":"3.11"
           }
     },
-    "postCreateCommand": "bash scripts/install-dbx.sh"
-
+    "customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-toolsai.jupyter",
+				"ms-python.python",
+				"ms-vscode-remote.remote-ssh",
+				"databricks.databricks"
+			]
+		}
+	},
+	"mounts": [
+		"source=${localEnv:HOME}/.databrickscfg,target=/home/vscode/.databrickscfg,type=bind,consistency=cached"
+	],
+  "postCreateCommand": "sudo  sh .devcontainer/scripts/install-dbx.sh"
 }
