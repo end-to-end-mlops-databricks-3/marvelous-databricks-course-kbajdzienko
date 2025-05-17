@@ -7,6 +7,19 @@ bundle:
 include:
   - resources/*.yml
 
+variables:
+  catalog:
+    description: The catalog to use for the deployment.
+  schema:
+    description: The schema to use for the deployment.
+  cluster_policy_id: 
+    lookup:
+      cluster_policy: 'Course Cluster'
+  my_cluster_id:
+    default: 0517-111444-d55bowse
+
+    
+
 targets:
   dev:
     # The default target uses 'mode: development' to create a development copy.
@@ -17,6 +30,11 @@ targets:
     default: true
     workspace:
       host: https://dbc-c2e8445d-159d.cloud.databricks.com
+      root_path: /Workspace/Users/krzysztof.bajdzienko@gmail.com/.bundle/${bundle.name}/${bundle.target}
+    variables:
+      catalog: mlops_dev
+      schema: krzyszto
+
 
   prod:
     mode: production
@@ -27,3 +45,9 @@ targets:
     permissions:
       - user_name: krzysztof.bajdzienko@gmail.com
         level: CAN_MANAGE
+    variables:
+      catalog: mlops_prod
+      schema: krzyszto
+      cluster_policy_id: 
+        lookup:
+          cluster_policy: 'Course Cluster'
