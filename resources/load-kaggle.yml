@@ -1,0 +1,29 @@
+resources:
+  jobs:
+      load-kaggle:
+        name: load-kaggle
+        description: Download Kaggle data into the data lake and load to bronze table
+        parameters:
+          - name: catalog
+            default: ${var.catalog}
+          - name: schema
+            default: ${var.schema}
+          - name: dataset
+            default: house-prices-advanced-regression-techniques
+        tasks:
+          - task_key: dowmload-kaggle
+            notebook_task:
+              notebook_path: ../notebooks/week1_01_download_kaggle.py
+            existing_cluster_id: ${var.my_cluster_id}
+            libraries:
+              - pypi:
+                  package: kaggle
+          - task_key: load-to-bronze
+            depends_on:
+              - task_key: download-kaggle        
+            notebook_task:
+              notebook_path: ../notebooks/week1_02_load_kaggle_to_delta.py
+              base_parameters:
+                table_name: "bz_hosue_prices"
+                primary_key: "Id"
+            existing_cluster_id: ${var.my_cluster_id}
