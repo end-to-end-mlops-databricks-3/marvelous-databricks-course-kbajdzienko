@@ -152,7 +152,6 @@ def test_save_to_catalog_succesfull(
     processor.preprocess()
     train_set, test_set = processor.split_data()
     processor.save_to_catalog(train_set, test_set)
-    processor.enable_change_data_feed()
 
     # Assert
     assert spark_session.catalog.tableExists(f"{config.catalog_name}.{config.schema_name}.train_set")

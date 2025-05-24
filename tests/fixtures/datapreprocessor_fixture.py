@@ -11,14 +11,13 @@ from tests.unit_tests.spark_config import spark_config
 
 
 @pytest.fixture(scope="session")
-def spark_session() -> SparkSession:
+def spark_session() -> SparkSession:  # type: ignore
     """Create and return a SparkSession for testing.
 
     This fixture creates a SparkSession with the specified configuration and returns it for use in tests.
     """
-    
     spark = (
-        SparkSession.builder.master(spark_config.master)
+        SparkSession.builder.master(spark_config.master)  # type: ignore
         .appName(spark_config.app_name)
         .config("spark.executor.cores", spark_config.spark_executor_cores)
         .config("spark.executor.instances", spark_config.spark_executor_instances)
@@ -27,7 +26,7 @@ def spark_session() -> SparkSession:
         .getOrCreate()
     )
 
-    yield spark
+    yield spark  # type: ignore
     spark.stop()
 
 
