@@ -13,7 +13,19 @@ Here the compute resource is configured with additional spark ENV vars to facili
 "KAGGLE_USERNAME": "{{secrets/personal/kaggle_username}}",
 "KAGGLE_KEY": "{{secrets/personal/kaggle_key}}"
 ```
+### decontainer
 
+-  local spark is required for unit tests and requires java to be installed
+
+- its conveninent to persist/mount `.databrickscfg` between devcontainer and host, you don't need to configure credentials everytime you rebuild the devcontainer
+
+Here we need `${localEnv:HOME}${localEnv:USERPROFILE}` to make it work on both Windows and Unix
+
+```
+"mounts": [
+		"source=${localEnv:HOME}${localEnv:USERPROFILE}/.databrickscfg,target=/home/vscode/.databrickscfg,type=bind,consistency=cached"
+	],
+```
 
 
 ## Practical information

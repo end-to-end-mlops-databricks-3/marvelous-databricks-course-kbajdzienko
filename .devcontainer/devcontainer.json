@@ -22,7 +22,7 @@
 		}
 	},
 	"mounts": [
-		"source=${localEnv:HOME}${localEnv:USERPROFILE}/.databrickscfg,target=/home/vscode/.databrickscfg,type=bind,consistency=cached"
+			"source=${localEnv:HOME}${localEnv:USERPROFILE}/.databrickscfg,target=/home/vscode/.databrickscfg,type=bind,consistency=cached"
 	],
   "postCreateCommand": "sudo  sh .devcontainer/scripts/install-dbx.sh"
 }
