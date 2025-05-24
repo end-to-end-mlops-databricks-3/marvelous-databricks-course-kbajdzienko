@@ -3,7 +3,7 @@ Marvelous MLOps End-to-end MLOps with Databricks course
 
 ## Week 1 Notes
 
-With the Machine Learning experience being the bottleneck, I have selected the default use case: **Real Estate Price Predicition**.
+With the Machine Learning experience being the bottleneck, I will be following the use case presented in the core-code-hub: **Real Estate Price Predicition**.
 Databricks Bundles will be used from the start to gain a deeper understanding of their inner workings.
 
 Additional first workflow has been created to download Kaggle House Pricing Dataset using `kaggle` API, followed by loading the table to Delta.
@@ -14,8 +14,6 @@ Here the compute resource is configured with additional spark ENV vars to facili
 "KAGGLE_KEY": "{{secrets/personal/kaggle_key}}"
 ```
 
-After loading to bronze, preprocessing is implemented as the next task. Here the `marvelous` dependency needs to be installed in the databricks cluster. 
-[WIP]
 
 
 ## Practical information
@@ -53,5 +51,3 @@ uv venv -p 3.11 .venv
 source .venv/bin/activate
 uv sync --extra dev
 ```
-
-
