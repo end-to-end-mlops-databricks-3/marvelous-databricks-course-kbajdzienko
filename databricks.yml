@@ -17,16 +17,10 @@ variables:
     lookup:
       cluster_policy: 'Course Cluster'
   my_cluster_id:
-    default: 0517-111444-d55bowse
-
-
+    description: ID of the interactive cluster to use for the deployment
 
 targets:
   dev:
-    # The default target uses 'mode: development' to create a development copy.
-    # - Deployed resources get prefixed with '[dev my_user_name]'
-    # - Any job schedules and triggers are paused by default.
-    # See also https://docs.databricks.com/dev-tools/bundles/deployment-modes.html.
     mode: development
     default: true
     workspace:
@@ -34,6 +28,9 @@ targets:
       root_path: /Workspace/Users/krzysztof.bajdzienko@gmail.com/.bundle/${bundle.name}/${bundle.target}
     variables:
       catalog: mlops_dev
+      my_cluster_id:
+        lookup:
+          cluster: 'krzysztofs-course-cluster'
 
   prod:
     mode: production

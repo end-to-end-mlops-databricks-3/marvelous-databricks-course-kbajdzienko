@@ -1,8 +1,8 @@
 resources:
   jobs:
       load-process-house-prices:
-        name: load-process-house-prices
-        description: Download Kaggle dataset into the data lake and load to bronze table
+        name: load-process-house-prices-train-set
+        description: Download Kaggle train set into the data lake and load to bronze table
         parameters:
           - name: catalog
             default: ${var.catalog}
@@ -17,10 +17,10 @@ resources:
               notebook_path: ../notebooks/week1_01_download_kaggle.py
               base_parameters:
                 kaggle_dataset: house-prices-advanced-regression-techniques
-                dataset_file_names: train.csv,test.csv
+                dataset_file_names: train.csv
             libraries:
               - pypi:
-                  package: kaggle
+                  package: uv
           - task_key: load-to-bronze
             existing_cluster_id: ${var.my_cluster_id}
             depends_on:
@@ -30,3 +30,9 @@ resources:
               base_parameters:
                 table_name: "bz_house_prices"
                 primary_key: "Id"
+          - task_key: preprocess-bronze
+            existing_cluster_id: ${var.my_cluster_id}
+            depends_on:
+              - task_key: load-to-bronze
+            notebook_task:
+              notebook_path: ../notebooks/week1_03_data_processor_notebook.py
