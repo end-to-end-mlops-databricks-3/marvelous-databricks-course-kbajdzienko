@@ -41,5 +41,8 @@ jobs:
           uv run pre-commit run --all-files
 
       - name: run pytest
+        env:
+          KAGGLE_USERNAME: "dummy_username"
+          KAGGLE_KEY: "dummy_key"
         run: |
           uv run pytest
