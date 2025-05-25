@@ -1,7 +1,6 @@
 """KaggleDownloader fixture for testing."""
 
 import pytest
-from dotenv import dotenv_values
 
 from house_price.kaggle_downloader import KaggleDownloader
 
@@ -9,8 +8,8 @@ from house_price.kaggle_downloader import KaggleDownloader
 @pytest.fixture
 def kaggle_env(monkeypatch: pytest.MonkeyPatch) -> None:  # type: ignore
     """Fixture to set Kaggle credentials in the environment."""
-    monkeypatch.setenv("KAGGLE_USERNAME", dotenv_values().get("KAGGLE_USERNAME", "dummy_user"))
-    monkeypatch.setenv("KAGGLE_KEY", dotenv_values().get("KAGGLE_KEY", "dummy_key"))
+    monkeypatch.setenv("KAGGLE_USERNAME", "dummy_user")
+    monkeypatch.setenv("KAGGLE_KEY", "dummy_key")
     yield
     monkeypatch.delenv("KAGGLE_USERNAME", raising=False)
     monkeypatch.delenv("KAGGLE_KEY", raising=False)

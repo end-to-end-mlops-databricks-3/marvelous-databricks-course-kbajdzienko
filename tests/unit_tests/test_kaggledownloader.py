@@ -15,7 +15,6 @@ def test_init_missing_env(monkeypatch: pytest.MonkeyPatch) -> None:
     """Test that OSError is raised if Kaggle env vars are missing."""
     monkeypatch.delenv("KAGGLE_USERNAME", raising=False)
     monkeypatch.delenv("KAGGLE_KEY", raising=False)
-    import pytest
 
     with pytest.raises(OSError):
         KaggleDownloader(
@@ -25,7 +24,7 @@ def test_init_missing_env(monkeypatch: pytest.MonkeyPatch) -> None:
             schema="sch",
             volume="vol",
             databricks=False,
-        )
+        ).download()
 
 
 def test_databricks_path_not_exists() -> None:
