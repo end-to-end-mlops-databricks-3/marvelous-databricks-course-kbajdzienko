@@ -1,0 +1,19 @@
+resources:
+  clusters:
+    personal_cluster:
+      cluster_name: krzysztofs-course-cluster
+      policy_id: ${var.cluster_policy_id}
+      apply_policy_default_values: true
+      spark_version: "15.4.x-scala2.12"
+      autotermination_minutes: 30
+      spark_env_vars:
+        aws_secret_access_key: "{{secrets/mlops_course/aws_secret_access_key}}"
+        region_name: "eu-west-1"
+        aws_access_key_id: "{{secrets/mlops_course/aws_access_key_id}}"
+        GIT_TOKEN: "{{secrets/mlops_course/GIT_TOKEN}}"
+        GITHUB_TOKEN: "{{secrets/mlops_course/GIT_TOKEN}}"
+        KAGGLE_KEY: "{{secrets/personal/kaggle_key}}"
+        KAGGLE_USERNAME: "{{secrets/personal/kaggle_username}}"
+      init_scripts:
+        - volumes:
+            destination: /Volumes/mlops_prd/utils/init_scripts/init_script.sh

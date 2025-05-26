@@ -1,0 +1,45 @@
+# This is a Databricks asset bundle definition for mlops_course_kbajdzienko.
+# See https://docs.databricks.com/dev-tools/bundles/index.html for documentation.
+bundle:
+  name: mlops_course_kbajdzienko
+  uuid: 9751da34-a0da-4174-aebd-e24618036720
+
+include:
+  - resources/*.yml
+
+variables:
+  catalog:
+    description: The catalog to use for the deployment.
+  schema:
+    description: The schema to use for the deployment.
+    default: krzyszto
+  cluster_policy_id:
+    lookup:
+      cluster_policy: 'Course Cluster'
+  my_cluster_id:
+    description: ID of the interactive cluster to use for the deployment
+
+targets:
+  dev:
+    mode: development
+    default: true
+    workspace:
+      host: https://dbc-c2e8445d-159d.cloud.databricks.com
+      root_path: /Workspace/Users/krzysztof.bajdzienko@gmail.com/.bundle/${bundle.name}/${bundle.target}
+    variables:
+      catalog: mlops_dev
+      my_cluster_id:
+        lookup:
+          cluster: 'krzysztofs-course-cluster'
+
+  prod:
+    mode: production
+    workspace:
+      host: https://dbc-c2e8445d-159d.cloud.databricks.com
+      # We explicitly deploy to /Workspace/Users/krzysztof.bajdzienko@gmail.com to make sure we only have a single copy.
+      root_path: /Workspace/Users/krzysztof.bajdzienko@gmail.com/.bundle/${bundle.name}/${bundle.target}
+    permissions:
+      - user_name: krzysztof.bajdzienko@gmail.com
+        level: CAN_MANAGE
+    variables:
+      catalog: mlops_prod
